@@ -1,3 +1,10 @@
+/*  First Draft.
+ *  It's ugly (for now) but works with stdin.'
+ *  Ben Souther
+ */
+
+
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
