@@ -3,8 +3,6 @@
  *  Ben Souther
  */
 
-
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -32,22 +30,16 @@ void colorize(){
             if(inesc){
                 inesc = false;
                 printf("%c", c);
-                last = c;
-                continue;
-            }
-            if(c == '\\'){
+            }else if(c == '\\'){
                 inesc = true;
                 printf("%c", c);
-                last = c;
-                continue;
-            }
-            if(c == '"' && last != '\\'){
+            }else if(c == '"' && last != '\\'){
                 instr = false;
                 printf("%c", c);
                 printf("%s", RESET);
-                last = c;
-                continue;
             }
+            printf("%c", c);
+
         }else{
             if(c == '"'){
                 printf("%s", RED);
@@ -57,30 +49,45 @@ void colorize(){
                 // control characters
                 if(c == '{' || c == '[' || c == ']' || c == '}' || c == ',' || c == ':'){
                     printf("%s%c%s",CYAN, c, RESET);
-                    last = c;
-                    continue;
 
                 // booleans or numerics
                 }else if( c == 't' || c == 'r' || c == 'u' || c == 'e' ||
                           c == 'f' || c == 'a' || c == 'l' || c == 's' || 
                           c == '0' || c == '1' || c == '2' || c == '3' ||
                           c == '4' || c == '5' || c == '6' || c == '7' ||
-                          c == '8' || c == '9' || c == '-' || c == '.'){
+                          c == '8' || c == '9' || c == '-' || c == '.' ||
+                          c == 'n' || c == 'l'){
 
                     printf("%s%c%s",RED, c, RESET);
-                    last = c;
-                    continue;
+                }else{
+                    printf("%c", c);
                 }
             }
         }
 
-        printf("%c", c);
         last = c;
     }// for
 }// colorize
 
-int main(int argc, char* argv){
+
+
+/* Entry point ... */
+int main(int argc, char *argv[]){
+    FILE *fp = stdin;
+
+    if(argc == 2){      /* work off a file */
+        fp = fopen(argv[1], "r");
+        if(!fp){
+            printf("Unable to open file: %s\n", argv[1]);
+            return 1;
+        }
+    }
+    
     colorize();
+    //colorize(fp);
+    if(fp!=stdin){
+        fclose(fp);
+    }
     return 0;
 }
 
