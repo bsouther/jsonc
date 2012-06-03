@@ -1,6 +1,5 @@
-/*  First Draft.
- *  It's ugly (for now) but works with stdin.'
- *  Ben Souther
+/* 
+ * Ben Souther
  */
 
 #include <stdlib.h>
@@ -11,20 +10,15 @@
 #define CYAN  "\x1B[36m"
 #define RESET "\x1b[0m" 
 
-int nextChar = EOF;
-bool instr = false;
-bool inesc = false;
+void colorize(FILE *fp){
 
+    int  c;
+    int  nextChar = EOF;
+    int  last     = EOF;
+    bool instr    = false;
+    bool inesc    = false;
 
-int get(){
-  return getc(stdin);
-}
-
-void colorize(){
-    int last;
-    int c;
-    last = EOF;
-    for(c = EOF; (c = get()) != EOF; ){
+    for(c = EOF; (c = getc(fp)) != EOF; ){
 
         if(instr){
             if(inesc){
@@ -83,11 +77,10 @@ int main(int argc, char *argv[]){
         }
     }
     
-    colorize();
-    //colorize(fp);
     if(fp!=stdin){
         fclose(fp);
     }
+    colorize(fp);
     return 0;
 }
 
