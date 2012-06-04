@@ -31,6 +31,8 @@ void colorize(FILE *fp){
                 instr = false;
                 printf("%c", c);
                 printf("%s", RESET);
+                last = c;
+                continue;
             }
             printf("%c", c);
 
