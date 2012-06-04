@@ -78,7 +78,7 @@ int main(int argc, char *argv[]){
     if(argc == 2){      /* work off a file */
         fp = fopen(argv[1], "r");
         if(!fp){
-            printf("Unable to open file: %s\n", argv[1]);
+            fprintf(stderr, "Unable to open file: %s\n", argv[1]);
             return 1;
         }
     }
