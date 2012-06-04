@@ -40,11 +40,17 @@ void colorize(FILE *fp){
                 instr = true;
             }else{
 
-                // control characters
+                /* control characters */
                 if(c == '{' || c == '[' || c == ']' || c == '}' || c == ',' || c == ':'){
                     printf("%s%c%s",CYAN, c, RESET);
 
-                // booleans or numerics
+
+                    /* Should be the end of the JSON doc, flush stdout */
+		    if(c == '}' && last == '\n'){
+                        fflush(stdout);
+                    }
+
+                /* booleans or numerics */
                 }else if( c == 't' || c == 'r' || c == 'u' || c == 'e' ||
                           c == 'f' || c == 'a' || c == 'l' || c == 's' || 
                           c == '0' || c == '1' || c == '2' || c == '3' ||
