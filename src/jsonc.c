@@ -40,6 +40,7 @@ void colorize(FILE *fp){
             if(c == '"'){
                 printf("%s", RED);
                 instr = true;
+                printf("%c", c);
             }else{
 
                 /* control characters */
