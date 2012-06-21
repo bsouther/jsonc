@@ -49,7 +49,7 @@ void colorize(FILE *fp){
 
 
                     /* Should be the end of the JSON doc, flush stdout */
-		    if(c == '}' && last == '\n'){
+		    if((c == '}' || c == ']') && last == '\n'){
                         fflush(stdout);
                     }
 
